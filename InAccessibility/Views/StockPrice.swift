@@ -12,6 +12,7 @@ struct StockPrice: View {
     let stock: Stock
     
     @Environment(\.stockColors) var stockColors
+    @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
     
     /// Stoke price and change are moved into parameters so they can also be used in the accessibility value.
     var stockPrice: String {
@@ -35,6 +36,18 @@ struct StockPrice: View {
         + Text("points.")
     }
     
+    var stockChangeBackground: some View {
+        Group {
+            if differentiateWithoutColor {
+                RoundedRectangle(cornerRadius: 6)
+                    .strokeBorder(lineWidth: 2)
+            } else {
+                RoundedRectangle(cornerRadius: 6)
+            }
+        }
+        .foregroundColor(stock.goingUp ? stockColors.up : stockColors.down)
+    }
+    
     var body: some View {
         VStack(alignment: .trailing, spacing: 2) {
             Text(stockPrice)
@@ -45,8 +58,7 @@ struct StockPrice: View {
                 .bold()
                 .lineLimit(1)
                 .padding(4)
-                .background(stock.goingUp ? stockColors.up : stockColors.down)
-                .cornerRadius(6)
+                .background(stockChangeBackground)
                 .foregroundColor(.white)
             /// Inverting is disabled to ensure color scheme stays the same.
                 .accessibilityIgnoresInvertColors()
