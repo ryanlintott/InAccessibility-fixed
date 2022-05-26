@@ -36,6 +36,7 @@ struct StockGraph: View {
     
     @Environment(\.stockColors) var stockColors
     
+    @Environment(\.legibilityWeight) var legibilityWeight
     @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
     @Environment(\.accessibilityReduceMotion) var reduceMotion
     @Environment(\.accessibilityReduceTransparency) var reduceTransparency
@@ -75,6 +76,14 @@ struct StockGraph: View {
         return showDots ? 0 : size * 0.12
     }
     
+    var dotSize: CGFloat {
+        if legibilityWeight == .bold {
+            return bigCircles ? 1.2 : 0.7
+        } else {
+            return bigCircles ? 1 : 0.5
+        }
+    }
+    
     /// Background Opacity is removed if reduce transparency is on
     var backgroundOpacity: CGFloat {
         reduceTransparency ? 1 : 0.9
@@ -101,7 +110,7 @@ struct StockGraph: View {
                     ForEach(points) { point in
                         pointShape
                         /// Size removed as it's now based on the size of the frame and spacing. Scale effect is used for big circles
-                            .scaleEffect(bigCircles ? 1 : 0.5)
+                            .scaleEffect(dotSize)
                             .aspectRatio(1, contentMode: .fit)
                             .foregroundColor(color)
                             .offset(y: -pointValue(point))

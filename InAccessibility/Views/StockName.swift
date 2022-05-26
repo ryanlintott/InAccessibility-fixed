@@ -60,6 +60,7 @@ struct StockName: View {
                             .foregroundColor(.yellow)
                         /// As this image is just decorative removing the trait removes the ability to explore this image.
                             .accessibilityRemoveTraits(.isImage)
+                            .accessibilityIgnoresInvertColors()
                     }
                 }
             }
