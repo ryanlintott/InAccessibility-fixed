@@ -10,6 +10,12 @@ import SwiftUI
 struct MainView: View {
     
     @State var showDetailStock: Stock?
+    @State var isShowingSettings: Bool = false
+    @AppStorage("StockColors") var stockColors: StockColors = .greenRed
+    
+    func changeColors(to colors: StockColors) {
+        stockColors = colors
+    }
     
     var body: some View {
         NavigationView {
@@ -17,19 +23,31 @@ struct MainView: View {
                 favoriteStocksSection
                 allStocksSection
             }
+            .environment(\.stockColors, stockColors)
             .navigationTitle("Stocks")
-            .toolbar(content: {
+            .toolbar {
                 toolbarItems
-            })
+            }
             .sheet(item: $showDetailStock) { stock in
                 DetailView(stock: stock)
+            }
+            .actionSheet(isPresented: $isShowingSettings) {
+                ActionSheet(
+                    title: Text("Color Settings"),
+                    message: Text("Choose color pair for up/down stock directions."),
+                    buttons: StockColors.all.map { stockColors in
+                            .default(stockColors.text) {
+                                changeColors(to: stockColors)
+                            }
+                    } + [.cancel()]
+                )
             }
         }
     }
     
     var favoriteStocksSection: some View {
         Section {
-            ForEach(Stock.favorites()) { stock in
+            ForEach(Stock.favorites) { stock in
                 StockCell(stock: stock)
                     .contentShape(Rectangle())
                     .onTapGesture {
@@ -55,7 +73,7 @@ struct MainView: View {
     
     var allStocksSection: some View {
         Section {
-            ForEach(Stock.all()) { stock in
+            ForEach(Stock.all) { stock in
                 StockCell(stock: stock)
                     .contentShape(Rectangle())
                     .onTapGesture {
@@ -71,9 +89,11 @@ struct MainView: View {
         Group {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    
+                    isShowingSettings = true
                 } label: {
                     Image(systemName: "gearshape.fill")
+                    /// Without the label this image would just read as "gear" or similar
+                        .accessibilityLabel(Text("Settings"))
                 }
             }
             
@@ -83,6 +103,16 @@ struct MainView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        Group {
+            MainView()
+                .previewInterfaceOrientation(.landscapeRight)
+            
+            MainView()
+                .environment(\.dynamicTypeSize, .xxxLarge)
+                .previewInterfaceOrientation(.landscapeLeft)
+            
+            MainView()
+                .environment(\.dynamicTypeSize, .accessibility5)
+        }
     }
 }

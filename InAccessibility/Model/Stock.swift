@@ -28,15 +28,16 @@ struct Stock: Identifiable {
         let goingUp = Bool.random()
         self.goingUp = goingUp
         
-        self.change = goingUp ? -Double.random(in: 3.12...149.44) : Double.random(in: 3.00...149.34)
+        /// GoingUp was negative and should be positive so these values were reversed.
+        self.change = goingUp ? Double.random(in: 3.12...149.44) : -Double.random(in: 3.00...149.34)
         
     }
     
-    static func example() -> Stock {
+    static var example: Stock {
         Stock(name: "Apple", shortName: "AAPL", favorite: false)
     }
     
-    static func favorites() -> [Stock] {
+    static var favorites: [Stock] {
         [
             Stock(name: "Apple", shortName: "AAPL", favorite: true),
             Stock(name: "Google", shortName: "GOOG", favorite: true),
@@ -46,7 +47,7 @@ struct Stock: Identifiable {
         ]
     }
     
-    static func all() -> [Stock] {
+    static var all: [Stock] {
         [
             Stock(name: "Apple", shortName: "AAPL", favorite: false),
             Stock(name: "Nintendo", shortName: "NNTD", favorite: false),
