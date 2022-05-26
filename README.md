@@ -44,5 +44,11 @@ This app is part of the [Accessibility](https://www.swiftuiseries.com/accessibil
 ## Dark Mode
 - Due to lots of nice defaults, dark mode worked after all these changes.
 
+# Examples
 
+## Dynamic Type, Layout and Colors
+https://user-images.githubusercontent.com/2143656/170584736-b2fbe61b-2025-4a1e-b6ab-594a9acc1bc1.mp4
+
+## Voice Over
+https://user-images.githubusercontent.com/2143656/170584726-ca472f04-93cb-45aa-b692-9c2cf3738f26.mp4
 
