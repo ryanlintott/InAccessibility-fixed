@@ -52,3 +52,32 @@ https://user-images.githubusercontent.com/2143656/170584736-b2fbe61b-2025-4a1e-b
 ## Voice Over
 https://user-images.githubusercontent.com/2143656/170584726-ca472f04-93cb-45aa-b692-9c2cf3738f26.mp4
 
+# What I Missed
+After watching the [Accessibility event](https://youtu.be/anOY0aSxxpQ) I found more accessibility issues I didn't address. I've listed them here:
+
+- Context menu actions. These could make VoiceOver and Switch Control a lot easier. 
+- accessibilityChartDescriptor could improve the chart accessibility.
+[Alexey Ivashko](https://github.com/Overcot/InAccessibility) implemented both of these.
+
+- Testing long stock names (especially those in other languages like German). They might be truncated as I limited the text to one line.
+Good job [Chris Wu](https://github.com/shiftingsand/InAccessibility-cwu) for catching this one.
+
+- "Tap" language in "Tap for more" and "Tap to share" assumes touchscreen interaction. It's better to avoid interaction-specific language.
+- Minimum button size should be 44 points.
+- Test and improve contrast ratio on a few items like the favourite star.
+- Test with Full Keyboard Access
+Nice work [Ryan Cole](https://github.com/rcole34/InAccessibility) for addressing these issues and congrats on winning the event!
+
+- Test with Voice Control (and I'm a bit embarrassed about missing it).
+Great work [Michelle Lau](https://github.com/mimzivvimzi/InAccessibility) for checking this and providing screenshots.
+
+- Customize focus state to ensure certain elements are accessed first by Voice Over and Switch Control. For example, jumping back to the selected stock when dismissing the detail view.
+- Cutsom rotors for quick navitation between stocks.
+Glad you implemented these features. [Adi Mathew](https://github.com/mathewa6/InAccessibility)!
+
+- Add a close button to the detail view sheet to make it easier to dismiss. Any gesture-based interactions should have a button alternative.
+Thanks [Robin Kanatzar](https://twitter.com/RobinKanatzar) (one of the judges) for this tip.
+
+- Use the caption panel when debugging and screen recording to easily see what VoiceOver is saying.
+Thanks [Bas Broek](https://twitter.com/basthomas) (one of the judges) for pointing out this feature.
+
